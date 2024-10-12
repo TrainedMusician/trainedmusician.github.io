@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Poaaah wat een mooi ding</title>
+	<style>
+		body {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			background-color: #f0f0f0;
+			margin: 0;
+		}
+
+		img {
+			border-radius: 8px;
+			height: auto;
+			width: 100%;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Display the image -->
+	<img src="/poaah/thicc_exhaust.png" alt="Image">
+
+	<br />
+	<!-- Audio element -->
+	<audio controls id="audio">
+		<source src="wow.mp3" type="audio/mpeg">
+		Your browser does not support the audio element.
+	</audio>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			// Add a delay of 0.5 seconds after the page has fully loaded
+			setTimeout(function () {
+				const audio = document.getElementById('audio');
+				audio.play().catch(function (error) {
+					// Autoplay was prevented; handle it here if needed (e.g., show a message)
+					console.log("Autoplay was blocked or failed:", error);
+				});
+			}, 500); // 500ms delay
+		});
+	</script>
+</body>
+
+</html>
