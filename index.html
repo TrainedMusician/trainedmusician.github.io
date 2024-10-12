@@ -4,13 +4,61 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>You found me!</title>
+	<title>You found my domain!</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			flex-direction: column;
+			margin: 0;
+		}
+
+		h1,
+		h2 {
+			margin: 10px;
+		}
+	</style>
 </head>
 
 <body>
-	<h1>Buon giorno, ciao tutti</h1>
-	<p>Welcome to my website</p>
+
+	<h1>Ciao tutti, buon <span id="greeting-italian">giorno</span></h1>
+	<h2>Het is weer een hele mooie <span id="time-dutch">dag</span></h2>
+
+	<script>
+		function updateWordsByTime() {
+			const now = new Date();
+			const hours = now.getHours();
+
+			const greetingItalian = document.getElementById('greeting-italian');
+			const timeDutch = document.getElementById('time-dutch');
+
+			if (hours >= 0 && hours < 6) {
+				// Night (00:00 - 06:00)
+				greetingItalian.textContent = "notte";  // Italian for night
+				timeDutch.textContent = "nacht";        // Dutch for night
+			} else if (hours >= 6 && hours < 12) {
+				// Morning (06:00 - 12:00)
+				greetingItalian.textContent = "giorno";  // Italian for morning/day
+				timeDutch.textContent = "dag";           // Dutch for day
+			} else if (hours >= 12 && hours < 18) {
+				// Afternoon (12:00 - 18:00)
+				greetingItalian.textContent = "pomeriggio";  // Italian for afternoon
+				timeDutch.textContent = "middag";            // Dutch for afternoon
+			} else {
+				// Evening (18:00 - 00:00)
+				greetingItalian.textContent = "sera";   // Italian for evening
+				timeDutch.textContent = "avond";        // Dutch for evening
+			}
+		}
+
+		// Run the function on page load
+		window.onload = updateWordsByTime;
+	</script>
+
 </body>
 
 </html>
-
