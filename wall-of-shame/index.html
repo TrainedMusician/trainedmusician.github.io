@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall of Shame - Mario Kart Edition</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #212121;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #ffcc00;
+            letter-spacing: 2px;
+        }
+
+        .wall-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 70px;
+        }
+
+        .wall-title {
+            font-size: 36px;
+            color: #ffcc00;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .shamed-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            font-size: 22px;
+            line-height: 2;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        .shamed-item {
+            background-color: #e60000;
+            border-radius: 12px;
+            padding: 15px 30px;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, background-color 0.3s;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.5s forwards;
+        }
+
+        .shamed-item:hover {
+            transform: scale(1.1);
+            background-color: #ff3333;
+        }
+
+        .shamed-item span {
+            font-size: 18px;
+            font-style: italic;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            padding: 10px;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .footer-text {
+            font-size: 16px;
+            color: #ffcc00;
+        }
+
+        /* Animation for fade-in effect */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Animation for slide-up effect */
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    Wall of Shame: Mario Kart Victims
+</header>
+
+<div class="wall-container">
+    <h2 class="wall-title">Those Who Tried To Beat Me & Failed!</h2>
+    <ul class="shamed-list">
+        <!-- Example entries, you can add more -->
+        <li class="shamed-item">Dominique <span>(keeps trying and failing)</span></li>
+		<li class="shamed-item">Marit <span>(ran out of beginners luck)</span></li>
+		<li class="shamed-item">Michel <span>(tried on 1st lap)</span></li>
+        <li class="shamed-item">Angel <span>(ran out of beginners luck)</span></li>
+        <li class="shamed-item">Josiane <span>(ran out of beginners luck)</span></li>
+		<li class="shamed-item">Anne-Marlein <span>(didn't know which way to go)</span></li>
+        <li class="shamed-item">Stijn <span>(ran out of beginners luck)</span></li>
+		<li class="shamed-item">Eva <span>(got caught in the grass)</span></li>
+		<li class="shamed-item">Paul <span>(drifted out of the corner)</span></li>
+		<li class="shamed-item">Sophie <span>(used the start power too early)</span></li>
+		<li class="shamed-item">Leonie <span>(got caught in the grass)</span></li>
+		<li class="shamed-item">Rianne <span>(ran out of gas)</span></li>
+		<li class="shamed-item">Niels <span>(boosted into a wall)</span></li>
+		<li class="shamed-item">Siep <span>(found my banana peel)</span></li>
+		<li class="shamed-item">Inge <span>(tried to use a shell as a defense, but threw it away)</span></li>
+		<li class="shamed-item">Fieke <span>(fell off Rainbow Road)</span></li>
+		<li class="shamed-item">Ellie <span>(took the wrong turn)</span></li>
+		<li class="shamed-item">Jesper <span>(tried to cut corners, but cut their chances of winning)</span></li>
+		<li class="shamed-item">Sterre <span>(got confused by the map)</span></li>
+		<li class="shamed-item">Jeffrey <span>(needed another lap to take the lead)</span></li>
+		<li class="shamed-item">Stefan <span>(too much kart customization, not enough practice)</span></li>
+		<li class="shamed-item">Melanie <span>(picked the wrong character)</span></li>
+		<li class="shamed-item">Max <span>(missed the boost pad)</span></li>
+    </ul>
+</div>
+
+<footer>
+    <p class="footer-text">*Keep racing, keep failing, keep shaming*</p>
+</footer>
+
+<script>
+	// Function to generate random colors
+	function getRandomColor() {
+		const letters = '0123456789ABCDEF';
+		let color = '#';
+		for (let i = 0; i < 6; i++) {
+			color += letters[Math.floor(Math.random() * 16)];
+		}
+		return color;
+	}
+
+	// Select all the list items with the class 'shamed-item'
+	const shamedItems = document.querySelectorAll('.shamed-item');
+
+	// Loop through each list item and assign a random color with a slight delay for animation
+	shamedItems.forEach((item, index) => {
+		// Assign a random color
+		item.style.backgroundColor = getRandomColor();
+
+		// Stagger animation with delay based on the index of the item
+		item.style.animationDelay = `${index * 0.1}s`;
+	});
+</script>
+
+</body>
+</html>
