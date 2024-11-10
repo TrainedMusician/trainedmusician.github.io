@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Angels little helper!</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+		integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			flex-direction: column;
+			margin: 0;
+		}
+
+		h1,
+		h2 {
+			margin: 10px;
+		}
+
+		.section-header {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .checkbox-wrapper {
+            margin-bottom: 10px;
+        }
+        .section-title {
+            margin-left: 10px;
+        }
+        .section-content {
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 14px;
+            white-space: pre-wrap; /* Maintain formatting of text */
+        }
+	</style>
+</head>
+
+<body>
+
+	<h1>Ciao tutti, <span id="greeting-italian">buon giorno</span></h1>
+	<h2>Het is weer een hele mooie <span id="time-dutch">dag</span> om een tabel om te zetten</h2>
+
+	<div class="container my-5">
+		<textarea id="textArea" placeholder="Type your text here..." rows="10" cols="80"></textarea>
+		
+		<p id="count">Sections: 0</p>
+
+		<div class="accordion" role="tablist" id="checkboxContainer" style="max-height: 20vh; overflow-y: scroll;">
+			<!-- Checkboxes will appear here -->
+		</div>
+
+		<br><br><br><br>
+		<span id="result" style="white-space: pre; display:inline-block; max-height: 40vh; max-width: 85vw; overflow: scroll;">Nothing selected</span>
+	</div>
+
+	<!-- Include Bootstrap JS (for Collapse functionality) -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"
+		integrity="sha512-7Pi/otdlbbCR+LnW+F7PwFcSDJOuUJB3OxtEHbg4vSMvzvJjde4Po1v4BR9Gdc9aXNUNFVUY+SK51wWT8WF0Gg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+	<script>
+		function updateWordsByTime() {
+			const now = new Date();
+			const hours = now.getHours();
+
+			const greetingItalian = document.getElementById('greeting-italian');
+			const timeDutch = document.getElementById('time-dutch');
+
+			if (hours >= 0 && hours < 6) {
+				// Night (00:00 - 06:00)
+				greetingItalian.textContent = "buona notte";  // Italian for night
+				timeDutch.textContent = "nacht";        // Dutch for night
+			} else if (hours >= 6 && hours < 12) {
+				// Morning (06:00 - 12:00)
+				greetingItalian.textContent = "buon giorno";  // Italian for morning/day
+				timeDutch.textContent = "dag";           // Dutch for day
+			} else if (hours >= 12 && hours < 18) {
+				// Afternoon (12:00 - 18:00)
+				greetingItalian.textContent = "buon pomeriggio";  // Italian for afternoon
+				timeDutch.textContent = "middag";            // Dutch for afternoon
+			} else {
+				// Evening (18:00 - 00:00)
+				greetingItalian.textContent = "buona sera";   // Italian for evening
+				timeDutch.textContent = "avond";        // Dutch for evening
+			}
+		}
+
+		// Get the textarea element
+		const textArea = document.getElementById('textArea');
+		let splittedContent = textArea.value.split(/(—|_){10,}/);
+		const countDisplay = document.getElementById('count');
+		const checkboxContainer = document.getElementById('checkboxContainer');
+		const resultArea = document.getElementById('result');
+
+		// Function to count sections based on the regex
+		function countSections() {
+			checkboxContainer.innerHTML = '';
+			splittedContent = textArea.value.split(/(—|_){10,}/);
+
+			let foundSpecSheet = false;
+			if (splittedContent) {
+				splittedContent.forEach((section, index) => {
+					if (/^\n[\S -]+\n$/g.test(section) || /^\—|_$/g.test(section)) {
+						if (section.includes("PLAIN TEXT FOR SPECIFICATION-SHEET")) {
+							foundSpecSheet = true;
+						}
+						return;
+					}
+					// Create a checkbox for each section
+					const checkbox = document.createElement('input');
+					checkbox.type = 'checkbox';
+					checkbox.checked = foundSpecSheet && section.trim().length && section.slice(0, 4) != '\n\nNO';
+					checkbox.id = `section${index + 1}`; // Unique ID for each checkbox
+					checkbox.value = index;
+					checkbox.setAttribute('style', 'display: inline-block;');
+
+					// Create collapsible wrapper (accordion item)
+					const accordionItem = document.createElement('div');
+					accordionItem.classList.add('accordion-item');
+
+					// Create accordion header (checkbox + section title)
+					const headerButtonWrapper = document.createElement('div');
+					headerButtonWrapper.style = 'display: inline-block; width: 97%;'
+					const accordionHeader = document.createElement('div');
+					accordionHeader.classList.add('accordion-header');
+					accordionHeader.id = `${index}-header`;
+					const headerButton = document.createElement('button');
+					headerButton.classList.add('accordion-button', 'collapsed');
+					headerButton.setAttribute('type', 'button');
+					headerButton.setAttribute('data-bs-toggle', 'collapse');
+					headerButton.setAttribute('data-bs-target', `#${index}`);
+					headerButton.setAttribute('aria-expanded', 'false');
+					headerButton.setAttribute('aria-controls', index);
+					headerButton.textContent = section.slice(0, 70);
+
+					// Create the collapsible content section
+					const collapseContent = document.createElement('div');
+					collapseContent.id = index;
+					collapseContent.classList.add('accordion-collapse', 'collapse');
+					collapseContent.setAttribute('aria-labelledby', `${index}-header`);
+					collapseContent.setAttribute('data-bs-parent', '#checkboxContainer');
+
+					// Content of the section (after the dashed separator)
+					const sectionContentDiv = document.createElement('div');
+					sectionContentDiv.classList.add('section-content');
+					sectionContentDiv.textContent = section;
+
+					// Append everything together
+					collapseContent.appendChild(sectionContentDiv);
+					accordionHeader.appendChild(checkbox);
+					headerButtonWrapper.appendChild(headerButton);
+					accordionHeader.appendChild(headerButtonWrapper);
+					accordionItem.appendChild(accordionHeader);
+					accordionItem.appendChild(collapseContent);
+					checkboxContainer.appendChild(accordionItem);
+				});
+			}
+		}
+
+		function prepareValue(value) {
+			if (value.includes(':')) {
+				splitted = value.split(':');
+				splitted[0] = "<strong>" + splitted[0] + "</strong>";
+				value = splitted.join(":")
+			}
+			return value
+		}
+
+		function getTableContent() {
+			const data = [...document.querySelectorAll('input[type=checkbox]:checked')].map(e => e.value);
+			let result = [];
+			data.forEach((value, index) => {
+				splittedContent[value].split(/\n/g).forEach((data, dataIndex) => {
+					if (data.length) {
+						const row = document.createElement('tr');
+						const column = document.createElement('td');
+						column.innerHTML = prepareValue(data);
+						row.appendChild(column);
+						result.push(row);
+					}
+				});
+			});
+			const row = document.createElement('tr');
+			const column = document.createElement('td');
+			column.innerHTML = '&nbsp;';
+			row.appendChild(column);
+			result.push(row);
+			return result;
+		}
+
+		function createTableCode() {
+			const table = document.createElement('table');
+			table.setAttribute('class', 'table table-hover table-striped');
+			const tbody = document.createElement('tbody');
+			getTableContent().forEach((section, index) => {
+				tbody.appendChild(section);
+			});
+			table.appendChild(tbody);
+			return table;
+		}
+
+		function createTable() {
+			resultArea.innerHTML = '';
+			const tableCode = createTableCode();
+			resultArea.appendChild(tableCode);
+			navigator.clipboard.writeText(tableCode.outerHTML);
+		}
+
+		
+		// Add an event listener to the textarea to run the countSections function on input
+		textArea.addEventListener('input', countSections);
+		// Add an event listener for checkboxes to trigger actions when their state changes
+		checkboxContainer.addEventListener('change', createTable);
+
+
+		// Run the function on page load
+		window.onload = function() {
+			updateWordsByTime();
+			countSections();
+			createTable();
+		};
+	</script>
+
+</body>
+
+</html>
