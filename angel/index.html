@@ -59,6 +59,7 @@
 		</div>
 
 		<br><br><br><br>
+		<textarea id="resultRaw" placeholder="Here comes the HTML code" rows="10" cols="80"></textarea>
 		<span id="result" style="white-space: pre; display:inline-block; max-height: 40vh; max-width: 85vw; overflow: scroll;">Nothing selected</span>
 	</div>
 
@@ -101,6 +102,7 @@
 		const countDisplay = document.getElementById('count');
 		const checkboxContainer = document.getElementById('checkboxContainer');
 		const resultArea = document.getElementById('result');
+		const resultAreaRaw = document.getElementById('resultRaw');
 
 		// Function to count sections based on the regex
 		function countSections() {
@@ -214,6 +216,7 @@
 			const tableCode = createTableCode();
 			resultArea.appendChild(tableCode);
 			navigator.clipboard.writeText(tableCode.outerHTML);
+			resultAreaRaw.value = tableCode.outerHTML;
 		}
 
 		
