@@ -172,7 +172,7 @@
 		function prepareValue(value) {
 			if (value.includes(':')) {
 				splitted = value.split(':');
-				splitted[0] = "<strong>" + splitted[0] + "</strong>";
+				splitted[0] = "<b>" + splitted[0] + "</b>";
 				value = splitted.join(":")
 			}
 			return value
