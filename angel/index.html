@@ -221,7 +221,10 @@
 
 		
 		// Add an event listener to the textarea to run the countSections function on input
-		textArea.addEventListener('input', countSections);
+		textArea.addEventListener('input', function () {
+			countSections();
+			createTable();
+		});
 		// Add an event listener for checkboxes to trigger actions when their state changes
 		checkboxContainer.addEventListener('change', createTable);
 
