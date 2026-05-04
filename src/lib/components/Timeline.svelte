@@ -118,7 +118,7 @@
 <section id="experience" bind:this={sectionEl}>
   <div class="container">
     <p class="section-eyebrow">02 / Experience</p>
-    <h2 class="section-heading">What I've done so far</h2>
+    <h2 class="section-heading">What I have been up to so far</h2>
 
     <div class="stage" style="height:{SVG_H}px">
 
