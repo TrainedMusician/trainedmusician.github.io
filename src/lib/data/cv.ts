@@ -41,7 +41,7 @@ export const skills: SkillGroup[] = [
     },
     {
         category: 'Other languages',
-        items: ['R (ggplot2, Shiny)', 'Java (Hadoop)', 'C++', 'JavaScript'],
+        items: ['C++', 'R (ggplot2, Shiny)', 'PHP', 'JavaScript (Svelte)'],
     },
 ];
 

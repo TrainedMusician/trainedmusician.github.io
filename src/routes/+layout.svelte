@@ -13,10 +13,4 @@
 
 {@render children()}
 
-<footer>
-  <div class="container">
-    <p>© {year} {personal.name} — Built with SvelteKit</p>
-  </div>
-</footer>
-
 <BackToTop />
